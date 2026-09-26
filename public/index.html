@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الموظفين | Employee Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container" id="login-container">
+        <div class="logo">🏢</div>
+        <h2>تسجيل الدخول للنظام</h2>
+        <p class="subtitle">بوابة الموظفين الداخلية</p>
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label>اختر مستخدم للتجربة السريعة (اختياري)</label>
+                <select id="quick-user" onchange="document.getElementById('username').value = this.value; document.getElementById('password').value = (this.value === 'admin' ? 'admin123' : 'user123');" style="width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; color: white; margin-bottom: 15px;">
+                    <option value="" disabled selected>-- اختر من القائمة --</option>
+                    <option value="user1">أحمد عبدالله (موظف عادي)</option>
+                    <option value="user2">سارة محمد (موظف عادي)</option>
+                    <option value="user15">جواهر (موظف عادي)</option>
+                    <option value="admin">مدير النظام الأمني (Admin)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>اسم المستخدم (Username)</label>
+                <input type="text" id="username" value="user1" required>
+            </div>
+            <div class="input-group">
+                <label>كلمة المرور (Password)</label>
+                <input type="password" id="password" value="user123" required>
+            </div>
+            <button type="submit" class="btn primary-btn">دخول</button>
+        </form>
+        
+        <div class="hints">
+            <p><strong>حساب موظف عادي:</strong> user1 / user123</p>
+            <p><strong>حساب المدير:</strong> admin / admin123</p>
+        </div>
+        
+        <div style="margin-top: 15px; text-align: center;">
+            <button id="reset-db-btn" class="btn outline-btn" style="border-color: var(--danger); color: var(--danger); font-size: 0.85rem;">إعادة ضبط قاعدة البيانات (إلغاء كل الاختراقات) 🔄</button>
+        </div>
+    </div>
+
+    <div class="dashboard hidden" id="dashboard-container">
+        <header class="dashboard-header glass-panel">
+            <div class="user-info">
+                <div class="avatar">👤</div>
+                <div>
+                    <h3 id="display-name">جاري التحميل...</h3>
+                    <span id="display-role" class="badge">جاري التحميل...</span>
+                </div>
+            </div>
+            <button id="logout-btn" class="btn outline-btn">تسجيل الخروج</button>
+        </header>
+
+        <main class="dashboard-content">
+            <section class="panel user-panel glass-panel">
+                <h3>الملف الشخصي ⚙️</h3>
+                <form id="profile-form">
+                    <div class="input-group">
+                        <label>الاسم (Name)</label>
+                        <input type="text" id="edit-name" required>
+                    </div>
+                    
+                    <div class="attack-controls">
+                        <label class="switch-label">
+                            <input type="checkbox" id="attack-toggle">
+                            <span class="switch-slider"></span>
+                            <span class="switch-text">تفعيل الهجوم (إرسال <code>role: admin</code> خفية) 😈</span>
+                        </label>
+                    </div>
+                    
+                    <div class="defense-controls">
+                        <label class="switch-label secure-label">
+                            <input type="checkbox" id="defense-toggle">
+                            <span class="switch-slider secure"></span>
+                            <span class="switch-text">تفعيل الحماية (Server Whitelisting) 🛡️</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn primary-btn">تحديث البيانات</button>
+                    <p id="update-msg" class="msg"></p>
+                </form>
+            </section>
+
+            <section class="panel admin-panel glass-panel hidden" id="admin-panel">
+                <h3>لوحة تحكم الإدارة (بيانات حساسة 🔒)</h3>
+                <p class="subtitle">هذه البيانات يجب ألا تظهر إلا للمدير فقط.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>الرقم</th>
+                            <th>الاسم</th>
+                            <th>الدور</th>
+                            <th>الراتب 💰</th>
+                            <th>التقييم ⭐</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
